@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.10.20
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
@@ -75,9 +75,9 @@ This package contains API documentation for %{name}.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTest.java
 
@@ -152,6 +152,12 @@ sed -i -e '/SuppressFBWarnings/d' $(grep -lr SuppressFBWarnings)
 %license LICENSE NOTICE
 
 %changelog
+* Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 1.10.20-7
+- Fix patch usage
+
+* Tue Nov 19 2024 Marián Konček <mkoncek@redhat.com> - 1.10.20-6
+- Rebuild with regenerated Requires on Java
+
 * Mon Aug 09 2021 Mohan Boddu <mboddu@redhat.com> - 1.10.20-5
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
