@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.10.20
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
@@ -13,6 +13,8 @@ Source0:        %{name}-%{version}.tar.gz
 Patch1:         0001-Avoid-bundling-asm.patch
 Patch2:         0002-Remove-dependency-on-jna.patch
 Patch3:         0003-Remove-Java-14-tests.patch
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 
 BuildRequires:  maven-local
 %if %{with bootstrap}
@@ -37,8 +39,6 @@ BuildRequires:  mvn(org.eclipse.aether:aether-util)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 %endif
-
-BuildArch:      noarch
 
 %description
 Byte Buddy is a code generation library for creating Java classes during the
@@ -152,6 +152,12 @@ sed -i -e '/SuppressFBWarnings/d' $(grep -lr SuppressFBWarnings)
 %license LICENSE NOTICE
 
 %changelog
+* Sat Nov 23 2024 Marián Konček <mkoncek@redhat.com> - 1.10.20-9
+- Add noarch to ExclusiveArch
+
+* Fri Nov 22 2024 Marián Konček <mkoncek@redhat.com> - 1.10.20-8
+- Disable building on i686
+
 * Thu Nov 21 2024 Marián Konček <mkoncek@redhat.com> - 1.10.20-7
 - Fix patch usage
 
